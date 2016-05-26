@@ -2,15 +2,10 @@ var http = require('http');
 var url = require('url');  
    
 function parseDate(pathname) {
-  //pathname = "December%2015,%202015";
   pathname = pathname.replace(/%20/g, " ");
-  
-  //pathname = "Dec 15, 2014";
-  //console.log(pathname);
   
   var regexNatural = /^(January|February|March|April|May|June|July|August|September|October|December) \d{1,2}, \d\d\d\d$/; 
   var regexUnix = /^\d+$/;
-  //console.log(regex.toString());
 
   if (regexNatural.test(pathname)) {
     var date = new Date(pathname);
@@ -41,7 +36,7 @@ var server = http.createServer(function (req, res) {
     json = JSON.stringify({natural: month+" "+day+", "+year, unixtime: date.getTime() / 1000});
   }
   res.writeHead(200, { 'Content-Type': 'application/json' });  
-  res.end(json)
+  res.end(json);
 });  
 
 server.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", function(){
